@@ -28,6 +28,9 @@ const Expenses = (props) => {
             title={item.title}
             amount={item.amount}
             date={item.date}
+            color={item.color}
+            type={item.type}
+            paymentMethod={item.paymentMethod}
           ></ExpenseItem>
         ))
       ) : (

@@ -5,9 +5,14 @@ import PaymentFormCheckbox from "./PaymentFormCheckbox";
 
 const PaymentForm = ({ getPaymentFormData }) => {
   const [objectState, setObjectState] = useState({
-    name: "",
-    price: 0,
+    name: "ㅇㅇ",
+    price: 1,
     today: new Date(),
+
+    // 새로 추가
+    color: "뭐가문제니",
+    type: [],
+    paymentMethod: "",
   });
 
   const inputTextHandler = (event) => {
@@ -28,6 +33,36 @@ const PaymentForm = ({ getPaymentFormData }) => {
     setObjectState((prevState) => ({
       ...prevState,
       today: event.target.value,
+    }));
+  };
+
+  // 지불방식
+  const paymentMethodHandler = (event) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      paymentMethod: event.target.value,
+    }));
+  };
+
+  // 상품타입
+  const getProductType = (data) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      type: data,
+    }));
+
+    // const types = [...objectState.type, data];
+    // setObjectState((prevState) => ({
+    //   ...prevState,
+    //   type: types,
+    // }));
+  };
+
+  // 상품색상
+  const colorHandelr = (event) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      color: event.target.value,
     }));
   };
 
@@ -76,7 +111,36 @@ const PaymentForm = ({ getPaymentFormData }) => {
               value={objectState.today}
             />
           </div>
-          <PaymentFormCheckbox></PaymentFormCheckbox>
+          <div>
+            <label for="colorSelector"> 상품 색상 </label>
+            <input type="color" id="colorSelector" onChange={colorHandelr} />
+          </div>
+          <div className="new-payment__control">
+            <PaymentFormCheckbox getProductType={getProductType} />
+          </div>
+          <div>
+            <div>
+              <input
+                type="radio"
+                id="deferred"
+                name="delivery-charges"
+                value="deferred"
+                onChange={paymentMethodHandler}
+              />
+              <label for="deferred">후불</label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="advance"
+                name="delivery-charges"
+                value="advance"
+                onChange={paymentMethodHandler}
+              />
+              <label for="advance">선불</label>
+            </div>
+          </div>
         </div>
         <div className="new-payment__actions">
           <div className="new-payment__payment of delivery"></div>
